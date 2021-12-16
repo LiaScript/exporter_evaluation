@@ -1,5 +1,9 @@
 name: Execute_Exporter
 on: [push]
+
+env:
+    EXPORTFOLDER: "export/"
+
 jobs:
   Run_exporter:
     runs-on: ubuntu-latest
@@ -13,6 +17,7 @@ jobs:
 
       - name: Run exporter for all LiaScript files in folder
         run: |
+              mkdir ${EXPORTFOLDER}
               dirlist=(`ls ${prefix}*.md`)
               for ((i=0; i < ${#dirlist[@]}; i++)); do
                  if [[ ${dirlist[$i]} != "README.md" ]]
@@ -23,10 +28,10 @@ jobs:
                     echo "================================"
                     echo "${filenameWithExtension}"
                     echo "--------------------------------"
-                    mkdir ${filename}
-                    outputPath=${filename}_export/${filename}
+                    mkdir ${EXPORTFOLDER}${filename}
+                    outputPath=${EXPORTFOLDER}${filename}/${filename}
                     liaex --format scorm1.2 -i ${filenameWithExtension} --output ${outputPath}.zip
-                    git add ${filename}_export/*.zip
+                    git add ${EXPORTFOLDER}${filename}/*.zip
                     echo "--------------------------------"
                     liaex --format web -i ${filenameWithExtension} --output ${outputPath}
                     echo "--------------------------------"
@@ -37,6 +42,8 @@ jobs:
 
       - name: Commit changes
         run: |
+             cd workflow
+             ls -all
              git config --local user.email "action@github.com"
              git config --local user.name "GitHub Action"
              git status
