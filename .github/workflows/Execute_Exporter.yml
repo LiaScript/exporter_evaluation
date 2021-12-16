@@ -1,0 +1,49 @@
+name: Execute_Exporter
+on: [push]
+jobs:
+  Run_exporter:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out current repository
+        uses: actions/checkout@v2
+
+      - name: Install dependencies and exporter
+        run: |
+             npm install -g @liascript/exporter
+
+      - name: Run exporter for all LiaScript files in folder
+        run: |
+              dirlist=(`ls ${prefix}*.md`)
+              for ((i=0; i < ${#dirlist[@]}; i++)); do
+                 if [[ ${dirlist[$i]} != "README.md" ]]
+                 then
+                    filenameWithExtension=${dirlist[$i]}
+                    filename=${filenameWithExtension%%.*}
+                    echo ""
+                    echo "================================"
+                    echo "${filenameWithExtension}"
+                    echo "--------------------------------"
+                    mkdir ${filename}
+                    outputPath=${filename}_export/${filename}
+                    liaex --format scorm1.2 -i ${filenameWithExtension} --output ${outputPath}.zip
+                    git add ${filename}_export/*.zip
+                    echo "--------------------------------"
+                    liaex --format web -i ${filenameWithExtension} --output ${outputPath}
+                    echo "--------------------------------"
+                    liaex --format json -i ${filenameWithExtension} --output ${outputPath}
+                    git add ${outputPath}.json
+                    ls -all
+                 fi
+              done
+
+      - name: Commit pdf
+        run: |
+             git config --local user.email "action@github.com"
+             git config --local user.name "GitHub Action"
+             git status
+             git commit -m "Add new export version of LiaScript" || echo "No changes to commit"
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+             github_token: ${{ secrets.GITHUB_TOKEN }}
+             branch: master
