@@ -13,14 +13,7 @@ jobs:
       - name: Check out current repository
         uses: actions/checkout@v2
 
-        # Installation der notwendigen Pandoc tools
-      - name: Install pandoc
-        run: |
-             sudo apt install pandoc
-
-      # Generierungsprozess
       - name: Run pandoc for all LiaScript files
         run: |
-              mkdir -p ${EXPORTFOLDER}
               dirlist=(`ls *.md`)
               echo "${dirlist}"
