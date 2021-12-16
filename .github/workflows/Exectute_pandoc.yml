@@ -17,23 +17,10 @@ jobs:
       - name: Install pandoc
         run: |
             sudo apt install pandoc
+
       # Generierungsprozess
       - name: Run pandoc markdown to pdf
         run: |
             mkdir -p ${EXPORTFOLDER}
-            dirlist=(`ls ${prefix}*.md`)
-            for ((i=0; i < ${#dirlist[@]}; i++)); do
-               if [[ ${dirlist[$i]} != "README.md" ]]
-               then
-                  filenameWithExtension=${dirlist[$i]}
-                  filename=${filenameWithExtension%%.*}
-                  echo ""
-                  echo "================================"
-                  echo "${filenameWithExtension}"
-                  echo "--------------------------------"
-                  mkdir -p ${EXPORTFOLDER}${filename}
-                  outputPath=${EXPORTFOLDER}${filename}/${filename}
-                  pandoc --toc -N --top-level-division=chapter -H .github/workflows/head.tex -V linkcolor:blue --pdf-engine=xelatex --listings --include-in-header=.github/workflows/listings.tex -o ${outputPath}.pdf ${filenameWithExtension}
-                  git add ${outputPath}.pdf
-               fi
-            done
+            dirlist=(`ls *.md`)
+            echo "${dirlist}"

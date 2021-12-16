@@ -18,7 +18,7 @@ jobs:
       - name: Run exporter for all LiaScript files in folder
         run: |
               mkdir -p ${EXPORTFOLDER}
-              dirlist=(`ls ${prefix}*.md`)
+              dirlist=(`ls *.md`)
               for ((i=0; i < ${#dirlist[@]}; i++)); do
                  if [[ ${dirlist[$i]} != "README.md" ]]
                  then
