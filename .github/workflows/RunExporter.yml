@@ -1,0 +1,24 @@
+name: GitHub Actions Demo
+on: [push]
+jobs:
+  Explore-GitHub-Actions:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out current repository
+        uses: actions/checkout@v2
+
+      - name: Install dependencies and exporter
+        run: |
+             npm install -g --verbose @liascript/exporter
+
+      - name: Run exporter for all LiaScript files in folder
+        run: |
+              dirlist=(`ls ${prefix}*.md`)
+              for ((i=0; i < ${#dirlist[@]}; i++)); do
+                 if [[ ${dirlist[$i]} != "README.md" ]]
+                 then
+                    echo "${dirlist[$i]}"
+                    echo "--------------------------------"
+                    liaex --format web -i ${dirlist[$i]}
+                 fi
+              done
