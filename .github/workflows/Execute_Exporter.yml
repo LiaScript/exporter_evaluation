@@ -17,7 +17,7 @@ jobs:
 
       - name: Run exporter for all LiaScript files in folder
         run: |
-              mkdir ${EXPORTFOLDER}
+              mkdir -p ${EXPORTFOLDER}
               dirlist=(`ls ${prefix}*.md`)
               for ((i=0; i < ${#dirlist[@]}; i++)); do
                  if [[ ${dirlist[$i]} != "README.md" ]]
@@ -28,7 +28,7 @@ jobs:
                     echo "================================"
                     echo "${filenameWithExtension}"
                     echo "--------------------------------"
-                    mkdir ${EXPORTFOLDER}${filename}
+                    mkdir -p ${EXPORTFOLDER}${filename}
                     outputPath=${EXPORTFOLDER}${filename}/${filename}
                     liaex --format scorm1.2 -i ${filenameWithExtension} --output ${outputPath}.zip
                     git add ${EXPORTFOLDER}${filename}/*.zip
