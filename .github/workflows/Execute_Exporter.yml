@@ -32,11 +32,10 @@ jobs:
                     echo "--------------------------------"
                     liaex --format json -i ${filenameWithExtension} --output ${outputPath}
                     git add ${outputPath}.json
-                    ls -all
                  fi
               done
 
-      - name: Commit pdf
+      - name: Commit changes
         run: |
              git config --local user.email "action@github.com"
              git config --local user.name "GitHub Action"
@@ -46,4 +45,4 @@ jobs:
         uses: ad-m/github-push-action@master
         with:
              github_token: ${{ secrets.GITHUB_TOKEN }}
-             branch: master
+             branch: main
