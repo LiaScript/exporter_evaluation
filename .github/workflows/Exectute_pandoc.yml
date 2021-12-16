@@ -1,0 +1,23 @@
+name: Execute_pandoc
+on: [push]
+
+env:
+    EXPORTFOLDER: "export/"
+
+jobs:
+  Run_pandoc:
+    runs-on: ubuntu-latest
+    container:
+        image: docker://mirisbowring/texlive_ctan_full:2019
+    steps:
+      - name: Check out current repository
+        uses: actions/checkout@v2
+
+        # Installation der notwendigen Pandoc tools
+      - name: Install pandoc
+        run: |
+          sudo apt install pandoc
+      # Generierungsprozess
+      - name: Run pandoc markdown to pdf
+        run: |
+          pandoc --toc -N --top-level-division=chapter -H .github/workflows/head.tex -V linkcolor:blue --pdf-engine=xelatex --listings --include-in-header=.github/workflows/listings.tex -o output/script.pdf 00_Basic_Markdown.md
