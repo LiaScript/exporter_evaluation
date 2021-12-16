@@ -62,7 +62,9 @@ References
 Images referencing external content
 -----------------
 
-![OER Logo](https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Global_Open_Educational_Resources_Logo.svg/800px-Global_Open_Educational_Resources_Logo.svg.png)
+`![OER Logo](https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Global_Open_Educational_Resources_Logo.svg/800px-Global_Open_Educational_Resources_Logo.svg.png)`
+
+> External image references generate an error for pdf generation. This has to be evaluated!
 
 Images referencing project internal content
 -----------------
