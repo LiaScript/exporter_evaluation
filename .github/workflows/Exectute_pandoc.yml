@@ -16,11 +16,11 @@ jobs:
         # Installation der notwendigen Pandoc tools
       - name: Install pandoc
         run: |
-            sudo apt install pandoc
+             sudo apt install pandoc
 
       # Generierungsprozess
-      - name: Run pandoc markdown to pdf
+      - name: Run pandoc for all LiaScript files
         run: |
-            mkdir -p ${EXPORTFOLDER}
-            dirlist=(`ls *.md`)
-            echo "${dirlist}"
+              mkdir -p ${EXPORTFOLDER}
+              dirlist=(`ls *.md`)
+              echo "${dirlist}"
