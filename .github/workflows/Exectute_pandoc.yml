@@ -10,6 +10,7 @@ jobs:
       - name: Print shell
         run: |
              cat /etc/shells
+             sudo apt install bash
       
       - name: Illustrate the problem
         run: |
