@@ -42,13 +42,12 @@ jobs:
                     echo "--------------------------------"
                     mkdir -p ${EXPORTFOLDER}${filename}
                     outputPath=${EXPORTFOLDER}${filename}/${filename}
-                    echo "${dirlist[$i]}"
                     pandoc --toc -N --top-level-division=chapter \
                            -H ${LIASCRIPTFOLDER}/.github/workflows/head.tex \
                            -V linkcolor:blue --pdf-engine=xelatex \ 
                            --listings \
                            --include-in-header=${LIASCRIPTFOLDER}/.github/workflows/listings.tex \
-                           -o ${outputPath}.pdf ${dirlist[$i]}
+                           -o ${outputPath}.pdf files/00_Basic_Markdown.md
                  fi
               done
         shell: bash
