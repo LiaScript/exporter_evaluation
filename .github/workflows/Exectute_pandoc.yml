@@ -1,6 +1,10 @@
 name: Execute_pandoc
 on: [push]
 
+env:
+    EXPORTFOLDER: "export"
+    LIASCRIPTFOLDER: "files"
+
 jobs:
   Run_pandoc:
     runs-on: ubuntu-latest
@@ -16,9 +20,24 @@ jobs:
         with: 
           path: files
       
-      - name: Illustrate the problem
+      - name: Prepare file structure
         run: |
-             echo "Hello World"
-             dirlist=(`ls /*`)
-             echo ${dirlist[@]}
+              mkdir -p ${EXPORTFOLDER}
+
+      - name: Run pandoc for all LiaScript files
+        run: |
+              dirlist=(`ls ${LIASCRIPTFOLDER}/*.md`)
+              for ((i=0; i < ${#dirlist[@]}; i++)); do
+                 filenameWithExtension=${dirlist[$i]##*/}
+                 filename=${filenameWithExtension%%.*}
+                 if [[ ${filenameWithExtension} != "README.md" ]]
+                 then
+                    echo ""
+                    echo "================================"
+                    echo "${filenameWithExtension}"
+                    echo "--------------------------------"
+                    mkdir -p ${EXPORTFOLDER}${filename}
+                    outputPath=${EXPORTFOLDER}${filename}/${filename}
+                 fi
+              done
         shell: bash
