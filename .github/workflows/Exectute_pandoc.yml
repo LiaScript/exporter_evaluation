@@ -7,6 +7,10 @@ jobs:
     container: pandoc/latex:2.16
 
     steps:
+      - name: Print shell
+        run: |
+             cat /etc/shells
+      
       - name: Illustrate the problem
         run: |
              echo "Hello World"
