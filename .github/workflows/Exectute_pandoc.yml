@@ -8,7 +8,7 @@ jobs:
   Run_pandoc:
     runs-on: ubuntu-latest
     container:
-        image: docker://mirisbowring/texlive_ctan_full:2019
+        image: docker://pandoc/latex
     steps:
       - name: Check out current repository
         uses: actions/checkout@v2
@@ -16,5 +16,5 @@ jobs:
       - name: Run pandoc for all LiaScript files
         run: |
              echo "Hello World"
-             dirlist=(`ls *.md`)
-             #echo "${dirlist}"
+             dirlist=(`ls ${prefix}*.md`)
+             echo "${dirlist}"
