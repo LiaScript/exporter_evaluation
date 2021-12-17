@@ -4,16 +4,12 @@ on: [push]
 jobs:
   Run_pandoc:
     runs-on: ubuntu-latest
-    container: texlive/texlive:latest
+    container: pandoc/ubuntu-latex:latest
 
     steps:
       - name: Print shell
         run: |
              cat /etc/shells
-
-      - name: Print shell
-        run: |
-             sudo apt install pandoc
 
       - name: Check out current repository
         uses: actions/checkout@v2
