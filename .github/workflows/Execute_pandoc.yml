@@ -42,8 +42,7 @@ jobs:
                     echo "${dirlist[$i]}"
                     pandoc --toc -N --top-level-division=chapter \
                            -H ${LIASCRIPTFOLDER}/.github/workflows/head.tex \
-                           -V linkcolor:blue --pdf-engine=xelatex \ 
-                           --listings \
+                           -V linkcolor:blue --listings \
                            --include-in-header=${LIASCRIPTFOLDER}/.github/workflows/listings.tex \
                            -o ${outputPath}.pdf ${dirlist[$i]}
                     git add ${outputPath}.pdf
