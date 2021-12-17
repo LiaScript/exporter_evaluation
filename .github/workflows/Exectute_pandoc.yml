@@ -8,10 +8,8 @@ env:
 jobs:
   Run_pandoc:
     runs-on: ubuntu-latest
-    container:
-        image: docker://pandoc/latex:2.9
-        options: --entrypoint=sh
-        
+    container: pandoc/latex:2.9
+
     steps:
       - name: Check out current repository
         uses: actions/checkout@v2
