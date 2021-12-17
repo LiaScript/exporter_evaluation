@@ -11,7 +11,7 @@ jobs:
     container: pandoc/ubuntu-latex:latest
 
     steps:
-      - name: Print shell
+      - name: Check dependencies (shell, pandoc)
         run: |
              cat /etc/shells
              pandoc --version
@@ -39,6 +39,7 @@ jobs:
                     echo "--------------------------------"
                     mkdir -p ${EXPORTFOLDER}${filename}
                     outputPath=${EXPORTFOLDER}${filename}/${filename}
+                    echo "${#dirlist[@]}"
                     pandoc --toc -N --top-level-division=chapter -H .github/workflows/head.tex -V linkcolor:blue --pdf-engine=xelatex --listings --include-in-header=.github/workflows/listings.tex -o ${outputPath}.pdf ${#dirlist[@]}
                  fi
               done
