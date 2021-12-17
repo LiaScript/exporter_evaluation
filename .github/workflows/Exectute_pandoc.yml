@@ -4,16 +4,20 @@ on: [push]
 jobs:
   Run_pandoc:
     runs-on: ubuntu-latest
-    container: pandoc/latex:2.16
+    container: texlive/texlive:latest
 
     steps:
       - name: Print shell
         run: |
              cat /etc/shells
-             sudo apt install bash
+
+      - name: Check out current repository
+        uses: actions/checkout@v2
+        with: 
+          path: files
       
       - name: Illustrate the problem
         run: |
              echo "Hello World"
-             dirlist=(`ls *`)
-        shell: bash
+             dirlist=(`ls /*`)
+             echo ${dirlist[@]}
