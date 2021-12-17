@@ -16,5 +16,5 @@ jobs:
       - name: Run pandoc for all LiaScript files
         run: |
              echo "Hello World"
-             #dirlist=(`ls *.md`)
+             dirlist=(`ls *.md`)
              #echo "${dirlist}"
