@@ -9,7 +9,9 @@ jobs:
   Run_pandoc:
     runs-on: ubuntu-latest
     container:
-        image: docker://pandoc/latex
+        image: docker://pandoc/latex:2.9
+        options: --entrypoint=sh
+        
     steps:
       - name: Check out current repository
         uses: actions/checkout@v2
