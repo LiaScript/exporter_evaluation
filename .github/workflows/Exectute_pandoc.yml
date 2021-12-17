@@ -24,6 +24,9 @@ jobs:
       - name: Prepare file structure
         run: |
               mkdir -p ${EXPORTFOLDER}
+              ls -all
+              cd files
+              ls -all
 
       - name: Run pandoc for all LiaScript files
         run: |
