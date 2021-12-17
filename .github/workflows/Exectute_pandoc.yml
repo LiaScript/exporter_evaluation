@@ -2,18 +2,42 @@ name: Execute_pandoc
 on: [push]
 
 env:
-    EXPORTFOLDER: "export/"
+    EXPORTFOLDER: "export"
+    LIASCRIPTFOLDER: "files"
 
 jobs:
   Run_pandoc:
     runs-on: ubuntu-latest
-    container:
-        image: docker://pandoc/latex
+#    container:
+#        image: docker://pandoc/latex
     steps:
       - name: Check out current repository
         uses: actions/checkout@v2
+        with: 
+          path: files
+
+      - name: Prepare file structure
+        run: |
+              mkdir -p ${EXPORTFOLDER}
 
       - name: Run pandoc for all LiaScript files
         run: |
-             echo "Hello World"
-             ls ${prefix}*.md
+              dirlist=(`ls ${LIASCRIPTFOLDER}/*.md`)
+              for ((i=0; i < ${#dirlist[@]}; i++)); do
+                 filenameWithExtension=${dirlist[$i]##*/}
+                 filename=${filenameWithExtension%%.*}
+                 if [[ ${filenameWithExtension} != "README.md" ]]
+                 then
+                    echo ""
+                    echo "================================"
+                    echo "${filenameWithExtension}"
+                    echo "--------------------------------"
+                    mkdir -p ${EXPORTFOLDER}${filename}
+                    outputPath=${EXPORTFOLDER}${filename}/${filename}
+                    pandoc --toc -N --top-level-division=chapter -H .github/workflows/head.tex \
+                          -V linkcolor:blue --pdf-engine=xelatex --listings \ 
+                          --include-in-header=.github/workflows/listings.tex \
+                          -o ${outputPath}.pdf ${#dirlist[@]}
+                 fi
+              done
+
