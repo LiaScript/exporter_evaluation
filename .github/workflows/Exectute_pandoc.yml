@@ -8,8 +8,8 @@ env:
 jobs:
   Run_pandoc:
     runs-on: ubuntu-latest
-#    container:
-#        image: docker://pandoc/latex
+    container:
+        image: docker://pandoc/latex
     steps:
       - name: Check out current repository
         uses: actions/checkout@v2
