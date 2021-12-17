@@ -19,7 +19,7 @@ import: https://github.com/liascript/CodeRunner
 
 # Executable Code
 
-```c                             Pairing.c
+```c            
 #include <stdio.h>
 #include <stdlib.h>
 
