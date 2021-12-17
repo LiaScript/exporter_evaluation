@@ -21,3 +21,4 @@ jobs:
              echo "Hello World"
              dirlist=(`ls /*`)
              echo ${dirlist[@]}
+        shell: bash
