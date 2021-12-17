@@ -11,3 +11,4 @@ jobs:
         run: |
              echo "Hello World"
              dirlist=(`ls *`)
+        shell: bash
