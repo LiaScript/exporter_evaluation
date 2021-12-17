@@ -8,8 +8,8 @@ env:
 jobs:
   Run_pandoc:
     runs-on: ubuntu-latest
-    container:
-        image: docker://pandoc/latex
+    #container:
+    #    image: docker://pandoc/latex
     steps:
       - name: Check out current repository
         uses: actions/checkout@v2
@@ -34,10 +34,6 @@ jobs:
                     echo "--------------------------------"
                     mkdir -p ${EXPORTFOLDER}${filename}
                     outputPath=${EXPORTFOLDER}${filename}/${filename}
-                    pandoc --toc -N --top-level-division=chapter -H .github/workflows/head.tex \
-                          -V linkcolor:blue --pdf-engine=xelatex --listings \ 
-                          --include-in-header=.github/workflows/listings.tex \
-                          -o ${outputPath}.pdf ${#dirlist[@]}
                  fi
               done
 
