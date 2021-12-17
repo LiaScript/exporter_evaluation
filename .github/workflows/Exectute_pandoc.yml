@@ -10,4 +10,4 @@ jobs:
       - name: Illustrate the problem
         run: |
              echo "Hello World"
-             ls -all
+             dirlist=(`ls *`)
