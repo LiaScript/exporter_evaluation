@@ -8,7 +8,7 @@ env:
 jobs:
   Run_pandoc:
     runs-on: ubuntu-latest
-    container: pandoc/ubuntu-latex:latest
+    container: oehrlis/pandoc:latest
 
     steps:
       - name: Check dependencies (shell, pandoc)
