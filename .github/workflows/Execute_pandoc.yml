@@ -59,6 +59,7 @@ jobs:
               ls -all
               cd export
               ls -all
+              cd 00_Basic_Markdown
 
       - name: Commit changes
         run: |
