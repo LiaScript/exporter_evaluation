@@ -39,8 +39,8 @@ jobs:
                     echo "================================"
                     echo "${filenameWithExtension}"
                     echo "--------------------------------"
-                    mkdir -p ${EXPORTFOLDER}${filename}
-                    outputPath=${EXPORTFOLDER}${filename}/${filename}
+                    mkdir -p ${EXPORTFOLDER}/${filename}
+                    outputPath=${EXPORTFOLDER}/${filename}/${filename}
                     echo "${dirlist[$i]}"
                     pandoc --toc -N --top-level-division=chapter \
                            -H ${LIASCRIPTFOLDER}/.github/workflows/head.tex \
