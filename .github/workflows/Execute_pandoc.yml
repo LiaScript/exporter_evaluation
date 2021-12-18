@@ -15,7 +15,7 @@ jobs:
         run: |
              cat /etc/shells
              pandoc --version
-             apt install git
+             sudo apt-get install git
 
       - name: Check out current repository
         uses: actions/checkout@v2
