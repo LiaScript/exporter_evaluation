@@ -47,6 +47,7 @@ jobs:
                            -V linkcolor:blue --listings \
                            --include-in-header=${LIASCRIPTFOLDER}/.github/workflows/listings.tex \
                            -o ${outputPath}.pdf ${dirlist[$i]}
+                    echo "${outputPath}.pdf" 
                     git add ${outputPath}.pdf
                  fi
               done
