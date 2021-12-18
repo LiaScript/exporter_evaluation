@@ -16,6 +16,7 @@ jobs:
              cat /etc/shells
              pandoc --version
              apt update
+             apt install git
 
       - name: Check out current repository
         uses: actions/checkout@v2
@@ -46,7 +47,19 @@ jobs:
                            -V linkcolor:blue --listings \
                            --include-in-header=${LIASCRIPTFOLDER}/.github/workflows/listings.tex \
                            -o ${outputPath}.pdf ${dirlist[$i]}
+                    git add ${outputPath}.pdf
                  fi
               done
         shell: bash
 
+      - name: Commit changes
+        run: |
+             git config --local user.email "action@github.com"
+             git config --local user.name "GitHub Action"
+             git status
+             git commit -m "Add new export version of LiaScript" || echo "No changes to commit"
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+             github_token: ${{ secrets.GITHUB_TOKEN }}
+             branch: main
