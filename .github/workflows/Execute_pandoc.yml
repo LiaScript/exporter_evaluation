@@ -25,7 +25,7 @@ jobs:
       
       - name: Prepare file structure
         run: |
-              mkdir -p ${EXPORTFOLDER}
+              mkdir -p ${LIASCRIPTFOLDER}/${EXPORTFOLDER}
 
       - name: Run pandoc for all LiaScript files
         run: |
@@ -46,8 +46,8 @@ jobs:
                            -H ${LIASCRIPTFOLDER}/.github/workflows/head.tex \
                            -V linkcolor:blue --listings \
                            --include-in-header=${LIASCRIPTFOLDER}/.github/workflows/listings.tex \
-                           -o ${outputPath}.pdf ${dirlist[$i]}
-                    echo "${LIASCRIPTFOLDER}/${outputPath}.pdf" 
+                           -o ${LIASCRIPTFOLDER}/${outputPath}.pdf 
+                           ${dirlist[$i]}
                     git add ${LIASCRIPTFOLDER}/${outputPath}.pdf
                  fi
               done
