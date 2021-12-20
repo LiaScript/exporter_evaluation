@@ -48,19 +48,10 @@ jobs:
                            --include-in-header=${LIASCRIPTFOLDER}/.github/workflows/listings.tex \
                            -o ${outputPath}.pdf ${dirlist[$i]}
                     echo "${outputPath}.pdf" 
-                    #git add ${outputPath}.pdf
+                    git add ${LIASCRIPTFOLDER}/${outputPath}.pdf
                  fi
               done
         shell: bash
-
-      - name: Prepare file structure
-        run: |
-              cd files
-              ls -all
-              cd export
-              ls -all
-              cd 00_Basic_Markdown
-              ls -all
 
       - name: Commit changes
         run: |
