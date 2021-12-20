@@ -46,7 +46,7 @@ jobs:
                            -H ${LIASCRIPTFOLDER}/.github/workflows/head.tex \
                            -V linkcolor:blue --listings \
                            --include-in-header=${LIASCRIPTFOLDER}/.github/workflows/listings.tex \
-                           -o ${LIASCRIPTFOLDER}/${outputPath}.pdf 
+                           -o ${LIASCRIPTFOLDER}/${outputPath}.pdf \
                            ${dirlist[$i]}
                     git add ${LIASCRIPTFOLDER}/${outputPath}.pdf
                  fi
