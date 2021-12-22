@@ -61,7 +61,7 @@
           "a": null
         }
       ],
-      "code": "\nImages referencing external content\n-----------------\n\n![OER Logo](https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Global_Open_Educational_Resources_Logo.svg/800px-Global_Open_Educational_Resources_Logo.svg.png)\n\nImages referencing project internal content\n-----------------\n\n![OER Logo](./images/OER_Logo.png)\n\nTable\n-----------------\n\n| Tables               |      Are      |  Cool |\n| -------------------- |:-------------:| -----:|\n| *** columns 3 is *** | right-aligned | $1600 |\n| ** column 2 is **    |   centered    |   $12 |\n| * zebra stripes *    |   are neat    |    $1 |\n\n\n",
+      "code": "\nImages referencing external content\n-----------------\n\n`![OER Logo](https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Global_Open_Educational_Resources_Logo.svg/800px-Global_Open_Educational_Resources_Logo.svg.png)`\n\n> External image references generate an error for pdf generation. This has to be evaluated!\n\nImages referencing project internal content\n-----------------\n\n![OER Logo](./images/OER_Logo.png)\n\nTable\n-----------------\n\n| Tables               |      Are      |  Cool |\n| -------------------- |:-------------:| -----:|\n| *** columns 3 is *** | right-aligned | $1600 |\n| ** column 2 is **    |   centered    |   $12 |\n| * zebra stripes *    |   are neat    |    $1 |\n\n\n",
       "indentation": 2
     },
     {
