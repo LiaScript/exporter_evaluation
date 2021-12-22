@@ -1,0 +1,27 @@
+@startuml
+ditaa
+
+         +-------------------+   +---------------------+
+         |                   :   |                     :
+         |                   v   |                     v
+    Repository           Clone in Action         Exported LiaDocs   
+                         REPOSITORYFOLDER        PURECOURSECONTENT 
+  +------------+         +------------+          +------------+   
+  | ... c1AB   |         | ... c1AB   |          | ... c1AB   |
+  | A.md       |         | A.md       |          | A.md       |  
+  | B.md       |         | B.md       |          | B.md       |
+  | ...        |         | ...        |          | ...        |
+  | /export    |         | /export    |          +------------+
+  |   /A       |         |   /A       |               | 
+  |     A.pdf  |         |     A.pdf  |               | 
+  |     A.json |         |     A.json |               |    
+  +------------+         +------------+               |  
+        ^                  |  ^  |  ^                 |     
+        |                  :  :  :  :                 :
+        +------------------+  |  v  |                 v    
+                 /----------------\ |    /----------------\    
+                 | generate       | |    | generate       |    
+                 | o json         | +----| o scorm        |      
+                 | o pdf          |      | o website      | 
+                 \----------------/      \----------------/
+@enduml
