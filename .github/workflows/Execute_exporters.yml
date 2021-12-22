@@ -37,6 +37,7 @@ jobs:
 
       - name: Provide cleaned course copy for scorm generation
         run: |
+             rm -rf ${PURECOURSECONTENT}
              cp -rf ${REPOSITORYFOLDER} ${PURECOURSECONTENT}
              cd ${PURECOURSECONTENT}
              rm -rf .git
