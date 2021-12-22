@@ -76,14 +76,13 @@ jobs:
                     liaex --format scorm1.2 -i ../${PURECOURSECONTENT}/${filenameWithExtension} \
                           --output ../${PURECOURSECONTENT}/${filename}.zip
                     mv -f ../${PURECOURSECONTENT}/*.zip ${EXPORTFOLDER}/${filename}/
+                    rm -rf ../${PURECOURSECONTENT}/${filename}
                     git add ${EXPORTFOLDER}/${filename}/*.zip
                     ################# Export website ############################################
                     echo "  ... export to website"
                     liaex --format web -i ../${PURECOURSECONTENT}/${filenameWithExtension} \
                           --output ../${PURECOURSECONTENT}/${filename}
-                    echo "Hier"
                     zip -r -q  ${outputPath}_web.zip ../${PURECOURSECONTENT}/${filename}
-                    echo "HOssa"
                     git add ${outputPath}_web.zip
                   fi
               done
