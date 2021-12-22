@@ -49,7 +49,7 @@
           "a": null
         }
       ],
-      "code": "\n```c            \n#include <stdio.h>\n#include <stdlib.h>\n\n#define ZIELWERT 18\n\nint main(void)\n{\n  int a[] = {1, 2, 5, 7, 9, 10, 12, 13, 16, 17, 18, 21, 25};\n  int *ptr_left = a;\n  int *ptr_right = (int *)(&a + 1) - 1;\n  printf(\"Value left %3d right %d\\n-----------------------\\n\", *ptr_left, * ptr_right);\n  do{\n    printf(\"Value left %3d right %d\", *ptr_left, * ptr_right);\n    if (*ptr_right + *ptr_left == ZIELWERT){\n       printf(\" -> TREFFER\");\n    }\n    printf(\"\\n\");\n    if (*ptr_right + *ptr_left >= ZIELWERT) ptr_right--;\n    else ptr_left++;\n  }while (ptr_right != ptr_left);\n  return EXIT_SUCCESS;\n}\n```\n@LIA.eval(`[\"main.c\"]`, `gcc -Wall main.c -o a.out`, `./a.out`)\n\n",
+      "code": "\nThis is an exemplary LiaScript document embedding executable code.\n\n```c            \n#include <stdio.h>\n#include <stdlib.h>\n\n#define ZIELWERT 18\n\nint main(void)\n{\n  int a[] = {1, 2, 5, 7, 9, 10, 12, 13, 16, 17, 18, 21, 25};\n  int *ptr_left = a;\n  int *ptr_right = (int *)(&a + 1) - 1;\n  printf(\"Value left %3d right %d\\n-----------------------\\n\", *ptr_left, * ptr_right);\n  do{\n    printf(\"Value left %3d right %d\", *ptr_left, * ptr_right);\n    if (*ptr_right + *ptr_left == ZIELWERT){\n       printf(\" -> TREFFER\");\n    }\n    printf(\"\\n\");\n    if (*ptr_right + *ptr_left >= ZIELWERT) ptr_right--;\n    else ptr_left++;\n  }while (ptr_right != ptr_left);\n  return EXIT_SUCCESS;\n}\n```\n@LIA.eval(`[\"main.c\"]`, `gcc -Wall main.c -o a.out`, `./a.out`)\n\n",
       "indentation": 1
     }
   ],
