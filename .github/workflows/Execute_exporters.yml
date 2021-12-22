@@ -1,0 +1,108 @@
+name: Execute_exporter
+on: [push]
+
+env:
+    EXPORTFOLDER: "export"
+    REPOSITORYFOLDER: "repository"
+    PURECOURSECONTENT: "course"
+
+jobs:
+  Run_pandoc:
+    runs-on: ubuntu-latest
+    container: pandoc/ubuntu-latex:latest
+
+    steps:
+      - name: Check dependencies (shell, pandoc)
+        run: |
+             cat /etc/shells
+             # Exporter to pdf
+             pandoc --version
+
+             apt update
+             apt -y install git
+             apt -y install npm
+             apt -y install zip
+
+             # Exporter for json, website, scorm
+             npm install -g @liascript/exporter
+
+      - name: Check out current repository
+        uses: actions/checkout@v2
+        with: 
+          path: repository
+
+      - name: Prepare file structure for results
+        run: |
+              mkdir -p ${REPOSITORYFOLDER}/${EXPORTFOLDER}
+
+      - name: Provide cleaned course copy for scorm generation
+        run: |
+             cp -rf ${REPOSITORYFOLDER} ${PURECOURSECONTENT}
+             cd ${PURECOURSECONTENT}
+             rm -rf .git
+             rm -rf .github 
+             rm -rf ${EXPORTFOLDER}
+
+      - name: Run pandoc for all LiaScript files
+        run: |
+              cd $REPOSITORYFOLDER 
+              dirlist=(`ls *.md`)
+              for ((i=0; i < ${#dirlist[@]}; i++)); do
+                 filenameWithExtension=${dirlist[$i]##*/}
+                 filename=${filenameWithExtension%%.*}
+                 if [[ ${filenameWithExtension} != "README.md" ]]
+                 then
+                    echo ""
+                    echo "================================"
+                    echo "${filenameWithExtension}"
+                    echo "--------------------------------"
+                    mkdir -p ${EXPORTFOLDER}/${filename}
+                    outputPath=${EXPORTFOLDER}/${filename}/${filename}
+                    ################# Export PDF #################################################
+                    echo "  ... export to pdf"
+                    pandoc --toc -N --top-level-division=chapter \
+                           -H .github/workflows/head.tex \
+                           -V linkcolor:blue --listings \
+                           --include-in-header=.github/workflows/listings.tex \
+                           -o ${outputPath}.pdf \
+                           ${dirlist[$i]}
+                    git add ${outputPath}.pdf
+                    ################# Export json ###############################################
+                    echo "  ... export to json"
+                    liaex --format json -i ${filenameWithExtension} --output ${outputPath}
+                    git add ${outputPath}.json
+                    ################# Export scorm ##############################################
+                    echo "  ... export to scorm"
+                    liaex --format scorm1.2 -i ../${PURECOURSECONTENT}/${filenameWithExtension} \
+                          --output ../${PURECOURSECONTENT}/${filename}.zip
+                    mv -f ../${PURECOURSECONTENT}/*.zip ${EXPORTFOLDER}/${filename}/
+                    git add ${EXPORTFOLDER}/${filename}/*.zip
+                    ################# Export website ############################################
+                    echo "  ... export to website"
+                    liaex --format web -i ../${PURECOURSECONTENT}/${filenameWithExtension} \
+                          --output ../${PURECOURSECONTENT}/${filename}
+                    echo "Hier"
+                    zip -r -q  ${outputPath}_web.zip ../${PURECOURSECONTENT}/${filename}
+                    echo "HOssa"
+                    git add ${outputPath}_web.zip
+                  fi
+              done
+        shell: bash
+
+      - name: Prepare file structure
+        run: |
+              cd ${REPOSITORYFOLDER}/export/01_Executable_Code/
+              ls -all
+
+      - name: Commit changes
+        run: |
+             git config --local user.email "action@github.com"
+             git config --local user.name "GitHub Action"
+             cd ${REPOSITORYFOLDER}
+             git status
+             git commit -m "Add new export version of LiaScript" || echo "No changes to commit"
+      - name: Push changes
+        uses: ad-m/github-push-action@master
+        with:
+             github_token: ${{ secrets.GITHUB_TOKEN }}
+             branch: main
