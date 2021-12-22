@@ -96,9 +96,9 @@ jobs:
 
       - name: Commit changes
         run: |
+             cd ${REPOSITORYFOLDER}
              git config --local user.email "action@github.com"
              git config --local user.name "GitHub Action"
-             cd ${REPOSITORYFOLDER}
              git status
              git commit -m "Add new export version of LiaScript" || echo "No changes to commit"
       - name: Push changes
