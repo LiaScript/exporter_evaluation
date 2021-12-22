@@ -19,6 +19,8 @@ import: https://github.com/liascript/CodeRunner
 
 # Executable Code
 
+This is an exemplary LiaScript document embedding executable code.
+
 ```c            
 #include <stdio.h>
 #include <stdlib.h>
